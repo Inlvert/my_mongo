@@ -158,6 +158,11 @@ db.inventory.updateMany(
     $set: { status: 'Accepted' } // - устанавливает новое значение в указанное поле(я)
   }
 );
+// UPDATE inventory set status = 'Accepted' WHERE status = 'A'
+
+// изменить значение поля status следующим образом
+//  - P -> Processing
+//  - D -> Done
 
 db.inventory.find();
 
@@ -166,22 +171,12 @@ db.inventory.find();
 
 db.inventory.drop(); // удаление таблицы
 
-db.inventory.updateMany(
-    { status: 'P' },
-    { $set: { status: 'Processing' } }
-);
+// DELETE FROM inventory
+db.inventory.deleteMany(); // - удаляет все
 
-db.inventory.updateMany(
-    { status: 'D' },
-    { $set: { status: 'Done' } }
-);
+// DELETE FROM inventory WHERE size.uom = 'in'
+db.inventory.deleteMany({
+  'size.uom': 'in'
+});
 
-db.inventory.find();
-
-
-db.inventory.daleteMany({
-    $or: [
-      { 'size.w': { $gt: 16 } },
-      { 'size.h': { $lt: 16 } }
-    ]
-  });
+// удалить всех пользователей, у которых нет или емейла или пароля
